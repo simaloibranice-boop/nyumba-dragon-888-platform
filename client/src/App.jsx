@@ -7,8 +7,9 @@ import LogInterceptor from './components/LogInterceptor';
 import SnapshotMatrix from './components/SnapshotMatrix';
 import SystemTerminal from './components/SystemTerminal';
 import FeatureControl from './components/FeatureControl';
+import SecurityMatrix from './components/SecurityMatrix';
 import NotificationStack from './components/NotificationStack';
-import { LayoutDashboard, FileText, Settings, Database, Terminal, History, Cpu, ToggleRight, Menu, X, Bell, Flame } from 'lucide-react';
+import { LayoutDashboard, FileText, Settings, Database, Terminal, History, Cpu, ToggleRight, ShieldAlert, Menu, X, Bell, Flame } from 'lucide-react';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -39,6 +40,7 @@ function App() {
       case 'snapshots': return <SnapshotMatrix />;
       case 'terminal': return <SystemTerminal />;
       case 'features': return <FeatureControl />;
+      case 'security': return <SecurityMatrix />;
       case 'profile': return <OperatorProfile />;
       default: return <AdminDashboard />;
     }
@@ -52,10 +54,9 @@ function App() {
         width: sidebarOpen ? '280px' : '0px', background: '#111622', borderRight: '1px solid rgba(255,255,255,0.1)',
         display: 'flex', flexDirection: 'column', position: 'fixed', top: 0, bottom: 0, left: 0, zIndex: 100, overflow: 'hidden', transition: 'all 0.2s ease'
       }}>
-        {/* Public facing high-tier branding heading */}
         <div style={{ padding: '2rem 1.75rem', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <Flame size={18} color="#ffcc00" style={{ filter: 'drop-shadow(0 0 4px rgba(255,204,0,0.4))' }} />
-          <span className="mono-text" style={{ fontSize: '0.95rem', fontWeight: 900, color: '#ffcc00', letterSpacing: '1px', textShadow: '0 0 8px rgba(255,204,0,0.2)' }}>
+          <span className="mono-text" style={{ fontSize: '0.95rem', fontWeight: 900, color: '#ffcc00', letterSpacing: '1px' }}>
             NYUMBA DRAGON 888
           </span>
         </div>
@@ -82,6 +83,9 @@ function App() {
           <button onClick={() => setActiveTab('features')} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.85rem 1.25rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.85rem', background: activeTab === 'features' ? 'rgba(0, 229, 255, 0.1)' : 'transparent', color: activeTab === 'features' ? '#00e5ff' : '#94a3b8', textAlign: 'left' }}>
             <ToggleRight size={16} /> Feature Flags
           </button>
+          <button onClick={() => setActiveTab('security')} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.85rem 1.25rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.85rem', background: activeTab === 'security' ? 'rgba(0, 229, 255, 0.1)' : 'transparent', color: activeTab === 'security' ? '#00e5ff' : '#94a3b8', textAlign: 'left' }}>
+            <ShieldAlert size={16} /> Token Security
+          </button>
           <button onClick={() => setActiveTab('profile')} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.85rem 1.25rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.85rem', background: activeTab === 'profile' ? 'rgba(0, 229, 255, 0.1)' : 'transparent', color: activeTab === 'profile' ? '#00e5ff' : '#94a3b8', textAlign: 'left' }}>
             <Settings size={16} /> Operator Settings
           </button>
@@ -90,7 +94,7 @@ function App() {
 
       {/* VIEWPORT AREA CONTROLLER */}
       <div style={{ flex: 1, marginLeft: sidebarOpen ? '280px' : '0px', minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#0a0d14' }}>
-        <header style={{ height: '70px', borderBottom: '1px solid rgba(255,255,255,0.1)', padding: '0 3rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#111622' }}>
+        <header style={{ height: '70px', borderBottom: '1px solid rgba(255,255,255,0.1)', padding: '0 3rem', display: 'flex', alignItems: 'center', justify: 'space-between', background: '#111622' }}>
           <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ background: 'transparent', border: 'none', color: '#f1f5f9', cursor: 'pointer' }}>
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
