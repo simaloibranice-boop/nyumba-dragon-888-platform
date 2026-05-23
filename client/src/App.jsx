@@ -8,8 +8,9 @@ import SnapshotMatrix from './components/SnapshotMatrix';
 import SystemTerminal from './components/SystemTerminal';
 import FeatureControl from './components/FeatureControl';
 import SecurityMatrix from './components/SecurityMatrix';
+import PayoutLedger from './components/PayoutLedger';
 import NotificationStack from './components/NotificationStack';
-import { LayoutDashboard, FileText, Settings, Database, Terminal, History, Cpu, ToggleRight, ShieldAlert, Menu, X, Bell, Flame } from 'lucide-react';
+import { LayoutDashboard, FileText, Settings, Database, Terminal, History, Cpu, ToggleRight, ShieldAlert, Landmark, Menu, X, Bell, Flame } from 'lucide-react';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -36,6 +37,7 @@ function App() {
       case 'dashboard': return <AdminDashboard />;
       case 'ledger': return <PropertyLedger />;
       case 'billing': return <BillingInvoices />;
+      case 'payouts': return <PayoutLedger />;
       case 'logs': return <LogInterceptor />;
       case 'snapshots': return <SnapshotMatrix />;
       case 'terminal': return <SystemTerminal />;
@@ -71,6 +73,9 @@ function App() {
           <button onClick={() => setActiveTab('billing')} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.85rem 1.25rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.85rem', background: activeTab === 'billing' ? 'rgba(0, 229, 255, 0.1)' : 'transparent', color: activeTab === 'billing' ? '#00e5ff' : '#94a3b8', textAlign: 'left' }}>
             <FileText size={16} /> Billing Matrix
           </button>
+          <button onClick={() => setActiveTab('payouts')} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.85rem 1.25rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.85rem', background: activeTab === 'payouts' ? 'rgba(255, 204, 0, 0.08)' : 'transparent', color: activeTab === 'payouts' ? '#ffcc00' : '#94a3b8', textAlign: 'left' }}>
+            <Landmark size={16} /> Agent Payouts
+          </button>
           <button onClick={() => setActiveTab('logs')} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.85rem 1.25rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.85rem', background: activeTab === 'logs' ? 'rgba(0, 229, 255, 0.1)' : 'transparent', color: activeTab === 'logs' ? '#00e5ff' : '#94a3b8', textAlign: 'left' }}>
             <Terminal size={16} /> Log Interceptor
           </button>
@@ -94,7 +99,7 @@ function App() {
 
       {/* VIEWPORT AREA CONTROLLER */}
       <div style={{ flex: 1, marginLeft: sidebarOpen ? '280px' : '0px', minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#0a0d14' }}>
-        <header style={{ height: '70px', borderBottom: '1px solid rgba(255,255,255,0.1)', padding: '0 3rem', display: 'flex', alignItems: 'center', justify: 'space-between', background: '#111622' }}>
+        <header style={{ height: '70px', borderBottom: '1px solid rgba(255,255,255,0.1)', padding: '0 3rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#111622' }}>
           <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ background: 'transparent', border: 'none', color: '#f1f5f9', cursor: 'pointer' }}>
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
