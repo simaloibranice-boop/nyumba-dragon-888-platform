@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Shield, Zap, TrendingUp, HelpCircle } from 'lucide-react';
 import MetricsChart from './MetricsChart';
 
 function AdminDashboard() {
-  // Overhauling telemetry metrics to reflect Nyumba Dragon 888 matrix nodes
-  const dragonMetrics = [
-    { label: 'DRAGON_POOL_MULTIPLIER', value: '888.8x', change: 'MAXIMUM_YIELD', color: '#ffcc00' },
-    { label: 'TOTAL_NYUMBA_ASSET_VALUE', value: 'Ksh 12,480,900', change: '+24.5%', color: '#10b981' },
-    { label: 'ACTIVE_MATRIX_CHANNELS', value: '8,888 /sec', change: 'NOMINAL', color: '#00e5ff' },
-    { label: 'FORTUNE_SHIELD_INTEGRITY', value: '99.99%', change: 'SECURE', color: '#10b981' }
-  ];
+  const [metrics, setMetrics] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Poll backend telemetry matrix data dynamically
+  useEffect(() => {
+    const fetchMetrics = () => {
+      fetch('http://localhost:8000/api/telemetry/metrics')
+        .then(res => res.json())
+        .then(data => {
+          setMetrics(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error("Telemetry link offline:", err);
+          setLoading(false);
+        });
+    };
+
+    fetchMetrics();
+    const interval = setInterval(fetchMetrics, 3000); // Pulse data array refresh every 3 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="mono-text" style={{ padding: '2rem', color: '#ffcc00' }}>
+        CONNECTING_TO_DRAGON_CORE_DATASTREAM...
+      </div>
+    );
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
@@ -21,7 +44,7 @@ function AdminDashboard() {
         border: '1px solid rgba(255, 204, 0, 0.25)', 
         borderRadius: '8px', 
         display: 'flex', 
-        justify: 'space-between', 
+        justifyContent: 'space-between', 
         alignItems: 'center', 
         borderLeft: '4px solid #ffcc00',
         boxShadow: '0 4px 20px rgba(0,0,0,0.4)'
@@ -43,7 +66,7 @@ function AdminDashboard() {
 
       {/* 888 Ideology Telemetry Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
-        {dragonMetrics.map((metric, i) => (
+        {metrics.map((metric, i) => (
           <div key={i} style={{ 
             background: '#111622', 
             border: metric.label.includes('DRAGON') ? '1px solid rgba(255,204,0,0.2)' : '1px solid rgba(255,255,255,0.1)', 
