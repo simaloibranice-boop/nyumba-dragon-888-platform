@@ -1,0 +1,66 @@
+/* --- System Design Token Variables --- */
+:root {
+  /* Core Background System */
+  --bg-primary: #0a0d14;
+  --bg-secondary: #111622;
+  --bg-panel: rgba(20, 26, 38, 0.65);
+  
+  /* Borders and Dividers */
+  --border-color: rgba(255, 255, 255, 0.08);
+  
+  /* Typography High Contrasts */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+  
+  /* Vibrant Cyan & Gold Accent Handshakes */
+  --accent-blue: #00e5ff;
+  --accent-gold: #d6af37;
+  
+  /* System Signals */
+  --status-success: #10b981;
+  --status-success-bg: rgba(16, 185, 129, 0.1);
+  --status-pending: #f59e0b;
+  --status-pending-bg: rgba(245, 158, 11, 0.1);
+  --status-danger: #ef4444;
+
+  /* Typography Rules & Timing */
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Global Elements Override --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+.mono-text {
+  font-family: var(--font-mono) !important;
+  letter-spacing: 0.5px;
+}
+
+/* --- Premium Structural Cards & Navigation Layout panels --- */
+.glass-panel {
+  background: var(--bg-panel) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Interactive item highlights */
+button {
+  transition: var(--transition-smooth);
+}
+
+button:hover {
+  filter: brightness(1.2);
+}
